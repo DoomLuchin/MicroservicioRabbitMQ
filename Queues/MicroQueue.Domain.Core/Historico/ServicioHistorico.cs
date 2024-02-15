@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 
 namespace MicroQueue.Domain.Core.Historico
@@ -28,7 +24,7 @@ namespace MicroQueue.Domain.Core.Historico
                     IdUsuario = historico.IdUsuario,
                     IdRelacionGuid = historico.IdRelacionGuid,
                     IdRelacionVarchar = historico.IdRelacionVarchar,
-                    FechaCreacion = DateTime.Now,
+                    FechaCreacion = historico.FechaCreacion,
                     Descripcion = historico.Descripcion,
                     TipoEvento = historico.TipoEvento,
                     Mensaje = historico.Mensaje
@@ -36,7 +32,7 @@ namespace MicroQueue.Domain.Core.Historico
 
                 var jsonHistorico = JsonConvert.SerializeObject(completedHistoric);
                 var httpHistoric = new StringContent(jsonHistorico, Encoding.UTF8, "application/json");
-                using HttpResponseMessage response = await cliente.PostAsync("/Historico", httpHistoric);
+                using HttpResponseMessage response = await cliente.PostAsync("api/Historico", httpHistoric);
                 switch (response.StatusCode)
                 {
                     case HttpStatusCode.Created:

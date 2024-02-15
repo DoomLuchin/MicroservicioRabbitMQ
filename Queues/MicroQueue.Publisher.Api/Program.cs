@@ -33,14 +33,7 @@ builder.Services.AddCors(options =>
     );
 });
 
-builder.Services.AddHttpClient("Historico", config =>
-{
-    HistoricoSettings? settings = builder.Configuration.Get<HistoricoSettings>();
-
-    var address = $"{settings?.URL}";
-    config.BaseAddress = new Uri(address);
-    config.DefaultRequestHeaders.Add("Api-Key", settings?.ApiKey);
-});
+builder.Services.AddHistoricoClient(builder.Configuration);
 
 var app = builder.Build();
 
