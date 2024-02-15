@@ -1,16 +1,16 @@
 ﻿using MicroQueue.Publisher.Application.Interfaces;
 using MicroQueue.Publisher.Domain.Commands;
 using MicroQueue.Domain.Core.Bus;
-using MicroQueue.Domain.Core.LogsAlliance;
 using MicroQueue.Domain.Core.Models;
+using MicroQueue.Domain.Core.Historico;
 
 namespace MicroQueue.Publisher.Application.Services
 {
     public class Service : IService
     {
         private readonly IEventBus _bus;
-        private readonly IHistorico _historico;
-        public Service(IEventBus bus, IHistorico historico)
+        private readonly IServicioHistorico _historico;
+        public Service(IEventBus bus, IServicioHistorico historico)
         {
             _bus = bus;
             _historico = historico;
@@ -31,12 +31,11 @@ namespace MicroQueue.Publisher.Application.Services
 
             _bus.SendCommand(createMailCommand);
 
-            _historico.AddHiscorico(new Historico
+            _historico.CrearHistoricoAsync(new HistoricoDTO
             {
                 IdUsuario = createMailCommand.IdUsuarioLog,
                 Descripcion = "Create Email Queue",
-                Evento = Constantes.Evento.CreateEmailQueue,
-                Tipo = Constantes.Tipo.Queue,
+                TipoEvento = TipoEvento.CreateEmailQueue,
                 Mensaje = createMailCommand.JsonMessage
             });
         }
@@ -53,23 +52,6 @@ namespace MicroQueue.Publisher.Application.Services
                 );            
 
             _bus.SendCommand(createDocumentCommand);
-
-            _historico.AddHiscorico(new Historico
-            {
-                IdUsuario = createDocumentCommand.IdUsuarioLog,
-                Descripcion = "Create Document Queue",
-                Evento = Constantes.Evento.CreateDocumentQueue,
-                Tipo = Constantes.Tipo.Queue,
-                Mensaje = createDocumentCommand.JsonMessage
-            });
-        }
-
-        public List<Historico> GetPublisherQueue(DateTime fechaInicio, DateTime fechaFin, string tipo, string evento)
-        {
-            List<Historico> historicoList =
-                _historico.GetHiscorico(fechaInicio, fechaFin, tipo, evento);
-
-            return historicoList;
         }
     }
 }

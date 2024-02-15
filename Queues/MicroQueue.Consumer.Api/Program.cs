@@ -1,12 +1,7 @@
-using MicroQueue.Consumer.Application.Interfaces;
-using MicroQueue.Consumer.Application.Services;
-using MicroQueue.Consumer.Domain.EventHandlers;
 using MicroQueue.Domain.Core.Bus;
 using MicroQueue.Domain.Core.Events;
-using MicroQueue.Domain.Core.LogsAlliance;
 using MicroQueue.Infra.Bus;
 using MicroQueue.Infra.IoC;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +14,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQSettings"));
 builder.Services.RegisterServices(builder.Configuration);
-
-builder.Services.AddTransient<IService, Service>();
-builder.Services.AddTransient<IHistorico, Historico>();
 
 builder.Services.AddTransient<IEventHandler<DocumentCreatedEvent>, MicroQueue.Consumer.Domain.EventHandlers.EventHandler>();
 builder.Services.AddTransient<IEventHandler<MailCreatedEvent>, MicroQueue.Consumer.Domain.EventHandlers.EventHandler>();

@@ -1,7 +1,4 @@
-﻿using MicroQueue.Consumer.Application.Interfaces;
-using MicroQueue.Domain.Core.LogsAlliance;
-using MicroQueue.Domain.Core.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ApiConsumerQueue.Controllers
 {
@@ -9,20 +6,15 @@ namespace ApiConsumerQueue.Controllers
     [ApiController]
     public class MailConsumerController : ControllerBase
     {
-        private readonly IService _service;
-
-        public MailConsumerController(IService service)
+        public MailConsumerController()
         {
-            _service = service;
         }
 
+        //Quitar
         [HttpGet]
-        public IActionResult GetConsumerMailQueue(DateTime fechaInicio, DateTime fechaFin)
+        public IActionResult GetConsumerMailQueue()
         {
-            List<Historico> documentQueueList =
-                _service.GetConsumerQueue(fechaInicio, fechaFin, Constantes.Tipo.Queue, Constantes.Evento.ConsumerEmailQueue);
-
-            return Ok(documentQueueList);
+            return Ok();
         }
     }
 }

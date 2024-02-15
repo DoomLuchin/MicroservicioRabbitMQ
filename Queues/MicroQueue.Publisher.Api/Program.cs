@@ -1,6 +1,5 @@
 using MediatR;
-using MicroQueue.Domain.Core.Bus;
-using MicroQueue.Domain.Core.LogsAlliance;
+using MicroQueue.Domain.Core.Historico;
 using MicroQueue.Infra.Bus;
 using MicroQueue.Infra.IoC;
 using MicroQueue.Publisher.Application.Interfaces;
@@ -21,7 +20,7 @@ builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("R
 builder.Services.RegisterServices(builder.Configuration);
 
 builder.Services.AddTransient<IService, Service>();
-builder.Services.AddTransient<IHistorico, Historico>();
+builder.Services.AddTransient<IServicioHistorico, ServicioHistorico>();
 
 builder.Services.AddTransient<IRequestHandler<CreateDocumentCommand, bool>, CommandHandler>();
 builder.Services.AddTransient<IRequestHandler<CreateMailCommand, bool>, CommandHandler>();
@@ -32,7 +31,15 @@ builder.Services.AddCors(options =>
     .AllowAnyMethod()
     .AllowAnyHeader()
     );
-    
+});
+
+builder.Services.AddHttpClient("Historico", config =>
+{
+    HistoricoSettings? settings = builder.Configuration.Get<HistoricoSettings>();
+
+    var address = $"{settings?.URL}";
+    config.BaseAddress = new Uri(address);
+    config.DefaultRequestHeaders.Add("Api-Key", settings?.ApiKey);
 });
 
 var app = builder.Build();

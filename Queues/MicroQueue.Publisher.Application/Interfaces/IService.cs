@@ -1,7 +1,4 @@
-﻿using MicroQueue.Domain.Core.LogsAlliance;
-using MicroQueue.Domain.Core.Models;
-using MicroQueue.Publisher.Domain.Commands;
-using System;
+﻿using MicroQueue.Domain.Core.Models;
 
 namespace MicroQueue.Publisher.Application.Interfaces
 {
@@ -9,6 +6,5 @@ namespace MicroQueue.Publisher.Application.Interfaces
     {      
         void SendDocumentMessage(DocumentMessage documentMessage);
         void SendMailMessage(MailMessage mailMessage);
-        List<Historico> GetPublisherQueue(DateTime fechaInicio, DateTime fechaFin, string tipo, string evento);
     }
 }

@@ -1,13 +1,6 @@
 ﻿using MediatR;
-using MicroQueue.Publisher.Application.Interfaces;
-using MicroQueue.Publisher.Application.Services;
-using MicroQueue.Publisher.Domain.CommandHandlers;
-using MicroQueue.Publisher.Domain.Commands;
 using MicroQueue.Domain.Core.Bus;
 using MicroQueue.Infra.Bus;
-using MicroQueue.Consumer.Application.Interfaces;
-using MicroQueue.Consumer.Application.Services;
-using MicroQueue.Consumer.Domain.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

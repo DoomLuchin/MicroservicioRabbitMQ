@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Net;
 using MicroQueue.Domain.Core.Events;
-using MicroQueue.Domain.Core.LogsAlliance;
+using MicroQueue.Domain.Core.Historico;
 
 namespace MicroQueue.Consumer.Domain.EventHandlers
 {
@@ -13,10 +13,10 @@ namespace MicroQueue.Consumer.Domain.EventHandlers
         IEventHandler<DocumentCreatedEvent>,
         IEventHandler<MailCreatedEvent>
     {
-        private readonly IHistorico _historico;
+        private readonly IServicioHistorico _historico;
         private readonly HttpClient _clientLogCloudApi = new HttpClient();
 
-        public EventHandler(IHistorico historico)
+        public EventHandler(IServicioHistorico historico)
         {
             _historico = historico;
         }
