@@ -8,17 +8,17 @@ namespace PublisherQueueApi.Controllers
     [ApiController]
     public class MailPublisherController : ControllerBase
     {
-        private readonly IService _service;
+        private readonly IMailService _mailService;
 
-        public MailPublisherController(IService service)
+        public MailPublisherController(IMailService mailService)
         {
-            _service = service;
+            _mailService = mailService;
         }      
 
         [HttpPost]
         public IActionResult SendMailMessage([FromBody] MailMessage mailMessage)
         {
-            _service.SendMailMessage(mailMessage);
+            _mailService.SendMailMessage(mailMessage);
             return Ok(mailMessage);
         }
     }

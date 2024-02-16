@@ -6,7 +6,7 @@ using MicroQueue.Domain.Core.Historico;
 
 namespace MicroQueue.Publisher.Application.Services
 {
-    public class Service : IService
+    public class Service : ICommonService
     {
         private readonly IEventBus _bus;
         private readonly IServicioHistorico _historico;
@@ -16,42 +16,26 @@ namespace MicroQueue.Publisher.Application.Services
             _historico = historico;
         }
 
-        public void SendMailMessage(MailMessage mailMessage)
+        public void SendCommonMessage(CommonMessage commonMessage)
         {
-            var createMailCommand =
-                new CreateMailCommand
+            var createCommonCommand =
+                new CreateCommonCommand
                 (
-                    mailMessage.To,
-                    mailMessage.From,
-                    mailMessage.Body,
-                    mailMessage.IdUsuarioLog,
-                    mailMessage.Token,
-                    mailMessage.JsonMessage
+                    commonMessage.URL,
+                    commonMessage.IdUsuarioLog,
+                    commonMessage.Token,
+                    commonMessage.JsonMessage
                 );            
 
-            _bus.SendCommand(createMailCommand);
+            _bus.SendCommand(createCommonCommand);
 
             _historico.CrearHistoricoAsync(new HistoricoDTO
             {
-                IdUsuario = createMailCommand.IdUsuarioLog,
-                Descripcion = "Create Email Queue",
+                IdUsuario = createCommonCommand.IdUsuarioLog,
+                Descripcion = "Create Common Queue for URL: " + commonMessage.URL,
                 TipoEvento = TipoEvento.CreateEmailQueue,
-                Mensaje = createMailCommand.JsonMessage
+                Mensaje = createCommonCommand.JsonMessage
             });
-        }
-
-        public void SendDocumentMessage(DocumentMessage documentMessage)
-        {
-            var createDocumentCommand =
-                new CreateDocumentCommand
-                (
-                    documentMessage.Printer,
-                    documentMessage.IdUsuarioLog,
-                    documentMessage.Token,
-                    documentMessage.JsonMessage
-                );            
-
-            _bus.SendCommand(createDocumentCommand);
         }
     }
 }

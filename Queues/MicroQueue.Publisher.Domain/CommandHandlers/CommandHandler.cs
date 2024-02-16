@@ -7,7 +7,7 @@ namespace MicroQueue.Publisher.Domain.CommandHandlers
 {
     public class CommandHandler 
         : 
-        IRequestHandler<CreateDocumentCommand, bool>, 
+        IRequestHandler<CreateCommonCommand, bool>, 
         IRequestHandler<CreateMailCommand, bool>
     {
         private readonly IEventBus _bus;
@@ -19,7 +19,7 @@ namespace MicroQueue.Publisher.Domain.CommandHandlers
 
         #region Logica para publicar el mensaje dentro del event bus de rabbitmq
 
-        public Task<bool> Handle(CreateDocumentCommand request, CancellationToken cancellationToken)
+        public Task<bool> Handle(CreateCommonCommand request, CancellationToken cancellationToken)
         {
             _bus.Publish(new DocumentCreatedEvent(request.Printer, request.IdUsuarioLog, request.Token, request.JsonMessage));
 

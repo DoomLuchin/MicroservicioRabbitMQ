@@ -21,7 +21,7 @@ namespace MicroQueue.Consumer.Domain.EventHandlers
         {
             //ManifiestoQueue transaction = new ManifiestoQueue();
             //transaction.JsonMessage = @event.JsonMessage;
-            //transaction.Printer = @event.Printer;
+            //transaction.URL = @event.URL;
             //transaction.IdUsuarioLog = @event.IdUsuarioLog;
 
             //_historico.AddManifiestoQueue(transaction);
