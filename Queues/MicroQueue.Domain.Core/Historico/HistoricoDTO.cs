@@ -19,7 +19,7 @@
     public class TipoEvento
     {
         public const int CreateEmailQueue = 5;
-        public const int CreateDocumentQueue = 6;
+        public const int CreateCommonQueue = 6;
         public const int ConsumerEmailQueue = 7;
         public const int ConsumerDocumentQueue = 8;
     }

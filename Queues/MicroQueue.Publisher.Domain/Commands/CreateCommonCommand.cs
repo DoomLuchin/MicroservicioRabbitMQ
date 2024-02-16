@@ -1,10 +1,10 @@
 ﻿namespace MicroQueue.Publisher.Domain.Commands
 {
-    public class CreateCommonCommand : DocumentCommand
+    public class CreateCommonCommand : CommonCommand
     {
-        public CreateCommonCommand(string printer, string jsonMessage, string idUsuarioLog, string token)
+        public CreateCommonCommand(string ruta, string idUsuarioLog, string token, string jsonMessage)
         {
-            Printer = printer;
+            Ruta = ruta;
             IdUsuarioLog = idUsuarioLog;
             Token = token;
             JsonMessage = jsonMessage;

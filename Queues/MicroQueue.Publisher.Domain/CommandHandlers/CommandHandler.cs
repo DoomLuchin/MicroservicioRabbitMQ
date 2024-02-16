@@ -21,7 +21,7 @@ namespace MicroQueue.Publisher.Domain.CommandHandlers
 
         public Task<bool> Handle(CreateCommonCommand request, CancellationToken cancellationToken)
         {
-            _bus.Publish(new DocumentCreatedEvent(request.Printer, request.IdUsuarioLog, request.Token, request.JsonMessage));
+            _bus.Publish(new CommonCreatedEvent(request.Ruta, request.IdUsuarioLog, request.Token, request.JsonMessage));
 
             return Task.FromResult(true);
         }

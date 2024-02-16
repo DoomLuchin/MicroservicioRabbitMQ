@@ -19,7 +19,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("RabbitMQSettings"));
 builder.Services.RegisterServices(builder.Configuration);
 
-builder.Services.AddTransient<ICommonService, Service>();
+builder.Services.AddTransient<ICommonService, CommonService>();
+builder.Services.AddTransient<IMailService, MailService>();
 builder.Services.AddTransient<IServicioHistorico, ServicioHistorico>();
 
 builder.Services.AddTransient<IRequestHandler<CreateCommonCommand, bool>, CommandHandler>();

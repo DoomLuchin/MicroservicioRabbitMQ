@@ -6,7 +6,7 @@ namespace MicroQueue.Consumer.Domain.EventHandlers
 {
     public class EventHandler
         :
-        IEventHandler<DocumentCreatedEvent>,
+        IEventHandler<CommonCreatedEvent>,
         IEventHandler<MailCreatedEvent>
     {
         private readonly IServicioHistorico _historico;
@@ -17,11 +17,11 @@ namespace MicroQueue.Consumer.Domain.EventHandlers
             _historico = historico;
         }
 
-        public Task Handle(DocumentCreatedEvent @event)
+        public Task Handle(CommonCreatedEvent @event)
         {
             //ManifiestoQueue transaction = new ManifiestoQueue();
             //transaction.JsonMessage = @event.JsonMessage;
-            //transaction.URL = @event.URL;
+            //transaction.Ruta = @event.Ruta;
             //transaction.IdUsuarioLog = @event.IdUsuarioLog;
 
             //_historico.AddManifiestoQueue(transaction);

@@ -2,8 +2,8 @@
 
 namespace MicroQueue.Publisher.Domain.Commands
 {
-    public abstract class DocumentCommand : Command
+    public abstract class CommonCommand : Command
     {        
-        public string Printer { get; set; } = string.Empty;
+        public string Ruta { get; set; } = string.Empty;
     }
 }

@@ -2,6 +2,6 @@
 {
     public class CommonMessage : MessageInfo
     {
-        public string URL { get; set; } = string.Empty;
+        public string Ruta { get; set; } = string.Empty;
     }
 }

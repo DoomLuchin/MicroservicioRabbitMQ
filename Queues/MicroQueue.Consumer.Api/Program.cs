@@ -17,7 +17,7 @@ builder.Services.Configure<RabbitMQSettings>(builder.Configuration.GetSection("R
 builder.Services.RegisterServices(builder.Configuration);
 
 builder.Services.AddTransient<IServicioHistorico, ServicioHistorico>();
-builder.Services.AddTransient<IEventHandler<DocumentCreatedEvent>, MicroQueue.Consumer.Domain.EventHandlers.EventHandler>();
+builder.Services.AddTransient<IEventHandler<CommonCreatedEvent>, MicroQueue.Consumer.Domain.EventHandlers.EventHandler>();
 builder.Services.AddTransient<IEventHandler<MailCreatedEvent>, MicroQueue.Consumer.Domain.EventHandlers.EventHandler>();
 
 //Subscriptions
@@ -35,7 +35,7 @@ builder.Services.AddHistoricoClient(builder.Configuration);
 
 var app = builder.Build();
 var eventBus = app.Services.GetRequiredService<IEventBus>();
-eventBus.Subscribe<DocumentCreatedEvent, MicroQueue.Consumer.Domain.EventHandlers.EventHandler>();
+eventBus.Subscribe<CommonCreatedEvent, MicroQueue.Consumer.Domain.EventHandlers.EventHandler>();
 eventBus.Subscribe<MailCreatedEvent, MicroQueue.Consumer.Domain.EventHandlers.EventHandler>();
 
 // Configure the HTTP request pipeline.

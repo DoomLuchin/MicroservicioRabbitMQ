@@ -16,7 +16,7 @@ namespace PublisherQueueApi.Controllers
         }       
 
         [HttpPost]
-        public IActionResult SendDocumentMessage([FromBody] CommonMessage commonMessage)
+        public IActionResult SendCommonMessage([FromBody] CommonMessage commonMessage)
         {
             _commonService.SendCommonMessage(commonMessage);
             return Ok(commonMessage);
