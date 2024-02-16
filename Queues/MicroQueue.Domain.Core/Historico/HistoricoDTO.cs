@@ -21,7 +21,7 @@
         public const int CreateEmailQueue = 5;
         public const int CreateCommonQueue = 6;
         public const int ConsumerEmailQueue = 7;
-        public const int ConsumerDocumentQueue = 8;
+        public const int ConsumerCommonQueue = 8;
     }
 
     public static class HistoricoServices

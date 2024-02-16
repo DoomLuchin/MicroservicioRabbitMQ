@@ -1,6 +1,7 @@
 ﻿using MicroQueue.Domain.Core.Bus;
 using MicroQueue.Domain.Core.Events;
 using MicroQueue.Domain.Core.Historico;
+using MicroQueue.Domain.Core.Models;
 
 namespace MicroQueue.Consumer.Domain.EventHandlers
 {
@@ -19,56 +20,30 @@ namespace MicroQueue.Consumer.Domain.EventHandlers
 
         public Task Handle(CommonCreatedEvent @event)
         {
-            //ManifiestoQueue transaction = new ManifiestoQueue();
-            //transaction.JsonMessage = @event.JsonMessage;
-            //transaction.Ruta = @event.Ruta;
-            //transaction.IdUsuarioLog = @event.IdUsuarioLog;
+            //llamar a tuta q se envia a la cola
 
-            //_historico.AddManifiestoQueue(transaction);
+            _historico.CrearHistoricoAsync(new HistoricoDTO
+            {
+                IdUsuario = @event.IdUsuarioLog,
+                Descripcion = "Consume Common Queue for URL " + @event.Ruta,
+                TipoEvento = TipoEvento.ConsumerCommonQueue,
+                Mensaje = @event.JsonMessage
+            });
 
             return Task.CompletedTask;
         }
 
         public Task Handle(MailCreatedEvent @event)
         {
-            //using (var client = new HttpClient())
-            //{
-            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", @event.Token);
+            //Llamar a api para enviar mail
 
-            //    //var serialized = new StringContent(@event.Body, Encoding.UTF8, "application/json");
-
-            //    using (HttpResponseMessage response = client.GetAsync("http://localhost:51332/api/Guias/ObtenerGuiaDetalle/").Result)
-            //    {
-            //        switch (response.StatusCode)
-            //        {
-            //            case HttpStatusCode.OK:
-            //                response.EnsureSuccessStatusCode();
-            //                string responseBody = response.Content.ReadAsStringAsync().Result;
-            //                //GenericResponse genericResponse = JsonConvert.DeserializeObject<GenericResponse>(responseBody);
-            //                //transaction.MessageResponse = genericResponse.Message;
-            //                //transaction.StatusResponse = genericResponse.Status;
-            //                break;
-            //            case HttpStatusCode.Unauthorized:
-            //                //transaction.MessageResponse = "Unauthorized";
-            //                //transaction.StatusResponse = (int)HttpStatusCode.Unauthorized;
-            //                break;
-            //            default:
-            //                //transaction.MessageResponse = response.StatusCode.ToString();
-            //                //transaction.StatusResponse = (int)response.StatusCode;
-            //                break;
-            //        }
-            //    }
-            //}
-
-            //var transaction = new MailQueue
-            //{
-            //    Body = @event.Body,
-            //    IdUsuarioLog = @event.IdUsuarioLog,
-            //    Id = @event.Id
-            //};
-
-            //_historico.UpdateMailQueue(transaction);
+            _historico.CrearHistoricoAsync(new HistoricoDTO
+            {
+                IdUsuario = @event.IdUsuarioLog,
+                Descripcion = "Consume Mail Queue",
+                TipoEvento = TipoEvento.ConsumerEmailQueue,
+                Mensaje = @event.JsonMessage
+            });
 
             return Task.CompletedTask;
         }
