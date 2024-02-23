@@ -11,8 +11,7 @@ namespace MicroQueue.Domain.Core.Historico
             {
                 HistoricoSettings? settings = configuration.GetSection("HistoricoSettings").Get<HistoricoSettings>();
 
-                var address = $"{settings?.URL}";
-                config.BaseAddress = new Uri(address);
+                config.BaseAddress = new Uri($"{settings?.URL}");
                 config.DefaultRequestHeaders.Add(HistoricoServices.HeaderLogsAlliance, settings?.ApiKey);
             });
         }
